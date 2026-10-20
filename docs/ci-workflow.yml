@@ -1,0 +1,35 @@
+name: Test and package
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npm test
+      - if: runner.os == 'Linux'
+        run: npx playwright-core install --with-deps chromium
+      - if: runner.os == 'Linux'
+        run: npm run test:browser
+      - if: runner.os == 'Windows'
+        run: npm run package
+      - if: runner.os == 'Windows'
+        uses: actions/upload-artifact@v7.0.2
+        with:
+          name: codesnap-fast-vsix
+          path: dist/*.vsix
+          if-no-files-found: error

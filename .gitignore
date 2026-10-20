@@ -1,0 +1,8 @@
+node_modules/
+dist/
+output/
+*.vsix
+*.log
+.env
+.env.*
+.DS_Store

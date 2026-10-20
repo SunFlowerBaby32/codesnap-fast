@@ -1,0 +1,155 @@
+{
+  "name": "codesnap-fast",
+  "displayName": "CodeSnap Fast",
+  "description": "Code screenshots with fast Windows native clipboard copying. An independent CodeSnap fork.",
+  "version": "0.1.0",
+  "publisher": "sunflowerbaby32",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "extensionKind": [
+    "ui"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SunFlowerBaby32/codesnap-fast.git"
+  },
+  "homepage": "https://github.com/SunFlowerBaby32/codesnap-fast#readme",
+  "bugs": {
+    "url": "https://github.com/SunFlowerBaby32/codesnap-fast/issues"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "screenshot",
+    "snippet",
+    "clipboard",
+    "codesnap"
+  ],
+  "main": "./src/extension.js",
+  "activationEvents": [
+    "onCommand:codesnapFast.start"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "codesnapFast.start",
+        "title": "CodeSnap Fast 📸"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "codesnapFast.start"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "CodeSnap Fast",
+      "type": "object",
+      "properties": {
+        "codesnapFast.backgroundColor": {
+          "scope": "resource",
+          "type": "string",
+          "default": "#abb8c3",
+          "description": "The background color of the snippet's container"
+        },
+        "codesnapFast.boxShadow": {
+          "scope": "resource",
+          "type": "string",
+          "default": "rgba(0, 0, 0, 0.55) 0px 20px 68px",
+          "description": "The CSS box-shadow for the snippet"
+        },
+        "codesnapFast.containerPadding": {
+          "scope": "resource",
+          "type": "string",
+          "default": "3em",
+          "description": "The padding for the snippet's container"
+        },
+        "codesnapFast.roundedCorners": {
+          "scope": "resource",
+          "type": "boolean",
+          "default": true,
+          "description": "Use rounded corners for the window"
+        },
+        "codesnapFast.showWindowControls": {
+          "scope": "resource",
+          "type": "boolean",
+          "default": true,
+          "description": "Display OS X style window controls"
+        },
+        "codesnapFast.showWindowTitle": {
+          "scope": "resource",
+          "type": "boolean",
+          "default": false,
+          "description": "Display window title with open folder / file name"
+        },
+        "codesnapFast.showLineNumbers": {
+          "scope": "resource",
+          "type": "boolean",
+          "default": true,
+          "description": "Display line numbers"
+        },
+        "codesnapFast.realLineNumbers": {
+          "scope": "resource",
+          "type": "boolean",
+          "default": false,
+          "description": "Start from the selection's line number instead of 1"
+        },
+        "codesnapFast.transparentBackground": {
+          "scope": "resource",
+          "type": "boolean",
+          "default": false,
+          "description": "Use a transparent background when taking the screenshot"
+        },
+        "codesnapFast.target": {
+          "scope": "resource",
+          "type": "string",
+          "enum": [
+            "container",
+            "window"
+          ],
+          "default": "container",
+          "description": "Take the shot with or without the container"
+        },
+        "codesnapFast.shutterAction": {
+          "scope": "resource",
+          "type": "string",
+          "enum": [
+            "save",
+            "copy"
+          ],
+          "default": "save",
+          "description": "The behavior of the shutter button"
+        },
+        "codesnapFast.showTiming": {
+          "scope": "resource",
+          "type": "boolean",
+          "default": false,
+          "description": "Show PNG rendering and clipboard timings in the preview."
+        },
+        "codesnapFast.clipboardMode": {
+          "scope": "resource",
+          "type": "string",
+          "enum": [
+            "auto",
+            "browser"
+          ],
+          "default": "auto",
+          "description": "Use the local Windows native clipboard when available, or explicitly use the browser clipboard."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "test": "node --test test/*.test.cjs",
+    "test:browser": "node test/browser.check.cjs",
+    "package": "node -e \"require('node:fs').mkdirSync('dist',{recursive:true})\" && vsce package --no-dependencies --out dist/"
+  },
+  "devDependencies": {
+    "@vscode/vsce": "4.0.0",
+    "playwright-core": "1.64.1"
+  }
+}

@@ -1,0 +1,12 @@
+.git/**
+.github/**
+docs/**
+test/**
+node_modules/**
+dist/**
+output/**
+*.vsix
+*.log
+package-lock.json
+.gitignore
+.vscodeignore
